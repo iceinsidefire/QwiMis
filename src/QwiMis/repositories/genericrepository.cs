@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Mvc;
@@ -28,13 +28,16 @@ namespace QwiMis.repositories
 
         }
 
-        public async Task<bool> Iqueryable<T> All()
+         public IQueryable<T> GetAll()
         {
-            bool x = await _dbset.ToListAsync(default);
-
-            return model;
-
+            return _dbset.AsQueryable();
         }
+
+        public IQueryable<T> search(Expression<Func<T, bool>> predi)
+        {
+            return _dbset.Where(predi);
+        }
+
 
 
 

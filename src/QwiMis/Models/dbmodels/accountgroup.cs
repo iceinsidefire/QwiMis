@@ -1,6 +1,8 @@
 ﻿
+using QwiMis.interfaces;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace QWI.Models.dbmodels
 {
@@ -15,7 +17,7 @@ namespace QWI.Models.dbmodels
 
     public partial class accountgroup:IEntity
     {
-        public int Id
+        public int id
         {
             get
             {
