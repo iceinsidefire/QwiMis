@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using QwiMis.interfaces;
 using QWI.Models.dbmodels;
+using Microsoft.Data.Entity.Storage;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,6 +24,7 @@ namespace QwiMis.Controllers
 
         public IActionResult Index()
         {
+            
             IEnumerable<accountgroup> accountgroups= _iaccountgroupservice.getallaccountgroups();
             return View(accountgroups);
         }

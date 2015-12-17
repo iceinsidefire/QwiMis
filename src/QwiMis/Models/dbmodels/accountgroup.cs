@@ -11,22 +11,11 @@ namespace QWI.Models.dbmodels
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
         public int accountgroupid { get; set; }
         public string accountgroupname { get; set; } //Assest,Liabilities,Capital(Equity)\\
         
 
         public virtual ICollection<accounttypes> accounttypes { get; set; }
     }
-
-    public partial class accountgroup:IEntity
-    {
-        public int id
-        {
-            get
-            {
-                return accountgroupid;
-            }
-        }
-    }
+    
 }

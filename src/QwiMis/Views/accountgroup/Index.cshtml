@@ -1,0 +1,32 @@
+@model IEnumerable<QWI.Models.dbmodels.accountgroup>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.accountgroupname)
+        </th>
+        <th></th>
+    </tr>
+    
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.accountgroupname)
+        </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.accountgroupid">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.accountgroupid">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.accountgroupid">Delete</a>
+        </td>
+    </tr>
+}
+</table>

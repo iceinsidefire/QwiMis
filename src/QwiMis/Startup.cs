@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using QwiMis.Models;
 using QwiMis.Services;
 using QwiMis.interfaces;
+using WebApplication1.Models.dbmodels;
 
 namespace QwiMis
 {
@@ -54,7 +55,7 @@ namespace QwiMis
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddTransient<IServices, service_accountgroup>();
+            services.AddTransient<Iaccountgroupservice, service_accountgroup>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -100,6 +101,7 @@ namespace QwiMis
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            SeedData.Initialize(app.ApplicationServices);
         }
 
         // Entry point for the application.

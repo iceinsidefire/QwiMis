@@ -59,7 +59,7 @@ namespace QwiMis.Services
             {
                 string error = "Dbexception" + dbcx.Message;
             }
-            return model.id;
+            return model.accountgroupid;
 
 
         }
