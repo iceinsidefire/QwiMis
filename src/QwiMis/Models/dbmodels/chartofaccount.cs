@@ -11,14 +11,16 @@ namespace QWI.Models.dbmodels
 
     {
         [Key]
-    public int chartofaccountid { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int chartofaccountid { get; set; }
         public string chartofaccountname { get; set; }
         public int? masteraccountid { get; set; }
         public decimal openingbalance { get; set; }
         public decimal balance { get; set; }
-        
+        [ConcurrencyCheck]
         public int accounttypesid { get; set; }
         public string accounttypename { get; set; } //have to amend whenever accounttypesid change.
+        [ConcurrencyCheck]
         public int accountgroupid { get; set; } //have to amend it whenever accounttype group change.
         public string accountgroupname { get; set; } //as above
         public bool isslave { get; set; }

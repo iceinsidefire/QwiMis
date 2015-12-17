@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using QwiMis.Models;
 using QwiMis.Services;
+using QwiMis.interfaces;
 
 namespace QwiMis
 {
@@ -53,6 +54,7 @@ namespace QwiMis
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IServices, service_accountgroup>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

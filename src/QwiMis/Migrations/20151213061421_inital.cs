@@ -5,7 +5,7 @@ using Microsoft.Data.Entity.Metadata;
 
 namespace QwiMis.Migrations
 {
-    public partial class initials : Migration
+    public partial class inital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,8 +28,8 @@ namespace QwiMis.Migrations
                 {
                     accountgroupid = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Id = table.Column<int>(nullable: false),
-                    accountgroupname = table.Column<string>(nullable: true)
+                    accountgroupname = table.Column<string>(nullable: true),
+                    id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,9 +42,11 @@ namespace QwiMis.Migrations
                     transactionid = table.Column<Guid>(nullable: false),
                     chartofaccountid = table.Column<int>(nullable: false),
                     credit = table.Column<decimal>(nullable: true),
+                    cvid = table.Column<int>(nullable: true),
                     debit = table.Column<decimal>(nullable: true),
+                    dvid = table.Column<int>(nullable: true),
                     entrydate = table.Column<DateTime>(nullable: false),
-                    referencevalue = table.Column<int>(nullable: false),
+                    jvid = table.Column<int>(nullable: true),
                     transactiondate = table.Column<DateTime>(nullable: false),
                     transacttypeid = table.Column<int>(nullable: false)
                 },
@@ -202,13 +204,13 @@ namespace QwiMis.Migrations
                         column: x => x.accountgroupid,
                         principalTable: "accountgroup",
                         principalColumn: "accountgroupid",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_chartofaccount_accounttypes_accounttypesid",
                         column: x => x.accounttypesid,
                         principalTable: "accounttypes",
                         principalColumn: "accounttypesid",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_chartofaccount_transactions_transactionstransactionid",
                         column: x => x.transactionstransactionid,

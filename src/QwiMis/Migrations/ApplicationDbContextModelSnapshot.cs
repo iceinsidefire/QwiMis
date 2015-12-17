@@ -103,9 +103,9 @@ namespace QwiMis.Migrations
                     b.Property<int>("accountgroupid")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Id");
-
                     b.Property<string>("accountgroupname");
+
+                    b.Property<int>("id");
 
                     b.HasKey("accountgroupid");
                 });
@@ -115,7 +115,8 @@ namespace QwiMis.Migrations
                     b.Property<int>("accounttypesid")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("accountgroupid");
+                    b.Property<int>("accountgroupid")
+                        .IsConcurrencyToken();
 
                     b.Property<string>("accounttypename");
 
@@ -127,13 +128,15 @@ namespace QwiMis.Migrations
                     b.Property<int>("chartofaccountid")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("accountgroupid");
+                    b.Property<int>("accountgroupid")
+                        .IsConcurrencyToken();
 
                     b.Property<string>("accountgroupname");
 
                     b.Property<string>("accounttypename");
 
-                    b.Property<int>("accounttypesid");
+                    b.Property<int>("accounttypesid")
+                        .IsConcurrencyToken();
 
                     b.Property<decimal>("balance");
 
@@ -155,15 +158,25 @@ namespace QwiMis.Migrations
                     b.Property<Guid>("transactionid")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("chartofaccountid");
+                    b.Property<int>("chartofaccountid")
+                        .IsConcurrencyToken();
 
-                    b.Property<decimal?>("credit");
+                    b.Property<decimal?>("credit")
+                        .IsConcurrencyToken();
 
-                    b.Property<decimal?>("debit");
+                    b.Property<int?>("cvid")
+                        .IsConcurrencyToken();
+
+                    b.Property<decimal?>("debit")
+                        .IsConcurrencyToken();
+
+                    b.Property<int?>("dvid")
+                        .IsConcurrencyToken();
 
                     b.Property<DateTime>("entrydate");
 
-                    b.Property<int>("referencevalue");
+                    b.Property<int?>("jvid")
+                        .IsConcurrencyToken();
 
                     b.Property<DateTime>("transactiondate");
 
