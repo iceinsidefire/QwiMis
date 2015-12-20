@@ -151,6 +151,100 @@ namespace QwiMis.Migrations
                     b.HasKey("chartofaccountid");
                 });
 
+            modelBuilder.Entity("QWI.Models.dbmodels.coils_wirerod", b =>
+                {
+                    b.Property<int>("coilnumber")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("coilweight");
+
+                    b.Property<int?>("gateingateinid");
+
+                    b.Property<int?>("productproductid");
+
+                    b.HasKey("coilnumber");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.gatein", b =>
+                {
+                    b.Property<int>("gateinid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("date");
+
+                    b.Property<int?>("productcategoryproductcategoryid");
+
+                    b.Property<string>("vehicle_number");
+
+                    b.Property<decimal>("weight");
+
+                    b.Property<int>("weightslipnumber");
+
+                    b.HasKey("gateinid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.prickling", b =>
+                {
+                    b.Property<Guid>("pricklingid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("date");
+
+                    b.HasKey("pricklingid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.pricklingdetail", b =>
+                {
+                    b.Property<Guid>("pricklingdetailid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("coilnumber");
+
+                    b.Property<Guid?>("pricklingpricklingid");
+
+                    b.HasKey("pricklingdetailid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.productcategory", b =>
+                {
+                    b.Property<int>("productcategoryid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("categoryname");
+
+                    b.Property<int?>("chartofaccountchartofaccountid");
+
+                    b.HasKey("productcategoryid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.products", b =>
+                {
+                    b.Property<int>("productid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("chartofaccountchartofaccountid");
+
+                    b.Property<int>("productcategoryid");
+
+                    b.Property<string>("productname");
+
+                    b.Property<int>("producttypeid");
+
+                    b.Property<decimal?>("size");
+
+                    b.HasKey("productid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.producttype", b =>
+                {
+                    b.Property<int>("producttypeid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("typename");
+
+                    b.HasKey("producttypeid");
+                });
+
             modelBuilder.Entity("QWI.Models.dbmodels.transactions", b =>
                 {
                     b.Property<Guid>("transactionid")
@@ -283,6 +377,57 @@ namespace QwiMis.Migrations
                     b.HasOne("QWI.Models.dbmodels.transactions")
                         .WithMany()
                         .HasForeignKey("transactionstransactionid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.coils_wirerod", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.gatein")
+                        .WithMany()
+                        .HasForeignKey("gateingateinid");
+
+                    b.HasOne("QWI.Models.dbmodels.products")
+                        .WithMany()
+                        .HasForeignKey("productproductid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.gatein", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.productcategory")
+                        .WithMany()
+                        .HasForeignKey("productcategoryproductcategoryid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.pricklingdetail", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.coils_wirerod")
+                        .WithOne()
+                        .HasForeignKey("QWI.Models.dbmodels.pricklingdetail", "coilnumber");
+
+                    b.HasOne("QWI.Models.dbmodels.prickling")
+                        .WithMany()
+                        .HasForeignKey("pricklingpricklingid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.productcategory", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.chartofaccount")
+                        .WithMany()
+                        .HasForeignKey("chartofaccountchartofaccountid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.products", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.chartofaccount")
+                        .WithMany()
+                        .HasForeignKey("chartofaccountchartofaccountid");
+
+                    b.HasOne("QWI.Models.dbmodels.productcategory")
+                        .WithMany()
+                        .HasForeignKey("productcategoryid");
+
+                    b.HasOne("QWI.Models.dbmodels.producttype")
+                        .WithMany()
+                        .HasForeignKey("producttypeid");
                 });
         }
     }

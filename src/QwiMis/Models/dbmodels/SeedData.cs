@@ -1,10 +1,8 @@
-﻿using QwiMis.Models;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
 using QWI.Models.dbmodels;
+using QwiMis.Models;
+using System;
+using System.Linq;
 
 namespace WebApplication1.Models.dbmodels
 {
@@ -19,28 +17,24 @@ namespace WebApplication1.Models.dbmodels
                 throw new Exception("DB is null");
             }
 
-            if (context.accountgroup.Any())
+            if (context.producttype.Any() && context.productcategory.Any())
             {
                 return;   // DB has been seeded
             }
-            context.accountgroup.AddRange(
-             new accountgroup
-             {
-                 accountgroupname = "When Harry Met Sally"
+            context.producttype.AddRange(
+             new producttype{typename = "Raw Material"},
+             new producttype { typename = "Semi Finish Wire" },
+             new producttype { typename = "Patented Wire" },
+             new producttype { typename = "Product" }
+                      );
 
-             },
-
-             new accountgroup
-             {
-                 accountgroupname = "When "
-             },
-
-             new accountgroup
-             {
-                 accountgroupname = "Sally"
-             }
-             );
+            context.productcategory.AddRange(
+          new productcategory { categoryname= "Wire Rod" },
+          new productcategory { categoryname = "Wire" },
+          new productcategory { categoryname = "Barbed Wire" },
+          new productcategory { categoryname = "Spoke" }
+                   );
             context.SaveChanges();
         }
-        }
+    }
 }

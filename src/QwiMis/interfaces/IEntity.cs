@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace QwiMis.interfaces
+﻿namespace QwiMis.interfaces
 {
     public interface IEntity
     {
-         int id { get; }
+        int id { get; }
     }
 }

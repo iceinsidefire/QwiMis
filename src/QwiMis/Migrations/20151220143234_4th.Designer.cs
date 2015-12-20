@@ -1,0 +1,435 @@
+using System;
+using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.Data.Entity.Metadata;
+using Microsoft.Data.Entity.Migrations;
+using QwiMis.Models;
+
+namespace QwiMis.Migrations
+{
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20151220143234_4th")]
+    partial class _4th
+    {
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .HasAnnotation("Relational:Name", "RoleNameIndex");
+
+                    b.HasAnnotation("Relational:TableName", "AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasAnnotation("Relational:TableName", "AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasAnnotation("Relational:TableName", "AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("ProviderKey");
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasAnnotation("Relational:TableName", "AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasAnnotation("Relational:TableName", "AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.accountgroup", b =>
+                {
+                    b.Property<int>("accountgroupid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("accountgroupname");
+
+                    b.HasKey("accountgroupid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.accounttypes", b =>
+                {
+                    b.Property<int>("accounttypesid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("accountgroupid")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("accounttypename");
+
+                    b.HasKey("accounttypesid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.chartofaccount", b =>
+                {
+                    b.Property<int>("chartofaccountid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("accountgroupid")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("accountgroupname");
+
+                    b.Property<string>("accounttypename");
+
+                    b.Property<int>("accounttypesid")
+                        .IsConcurrencyToken();
+
+                    b.Property<decimal>("balance");
+
+                    b.Property<string>("chartofaccountname");
+
+                    b.Property<bool>("isslave");
+
+                    b.Property<int?>("masteraccountid");
+
+                    b.Property<decimal>("openingbalance");
+
+                    b.Property<Guid?>("transactionstransactionid");
+
+                    b.HasKey("chartofaccountid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.coils_wirerod", b =>
+                {
+                    b.Property<int>("coilnumber")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("coilweight");
+
+                    b.Property<int?>("gateingateinid");
+
+                    b.Property<int?>("productproductid");
+
+                    b.HasKey("coilnumber");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.gatein", b =>
+                {
+                    b.Property<int>("gateinid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("date");
+
+                    b.Property<int?>("productcategoryproductcategoryid");
+
+                    b.Property<string>("vehicle_number");
+
+                    b.Property<decimal>("weight");
+
+                    b.Property<int>("weightslipnumber");
+
+                    b.HasKey("gateinid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.prickling", b =>
+                {
+                    b.Property<Guid>("pricklingid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("date");
+
+                    b.HasKey("pricklingid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.pricklingdetail", b =>
+                {
+                    b.Property<Guid>("pricklingdetailid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("coilnumber");
+
+                    b.Property<Guid?>("pricklingpricklingid");
+
+                    b.HasKey("pricklingdetailid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.productcategory", b =>
+                {
+                    b.Property<int>("productcategoryid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("categoryname");
+
+                    b.Property<int?>("chartofaccountchartofaccountid");
+
+                    b.HasKey("productcategoryid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.products", b =>
+                {
+                    b.Property<int>("productid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("chartofaccountchartofaccountid");
+
+                    b.Property<int>("productcategoryid");
+
+                    b.Property<string>("productname");
+
+                    b.Property<int>("producttypeid");
+
+                    b.Property<decimal?>("size");
+
+                    b.HasKey("productid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.producttype", b =>
+                {
+                    b.Property<int>("producttypeid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("typename");
+
+                    b.HasKey("producttypeid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.transactions", b =>
+                {
+                    b.Property<Guid>("transactionid")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("chartofaccountid")
+                        .IsConcurrencyToken();
+
+                    b.Property<decimal?>("credit")
+                        .IsConcurrencyToken();
+
+                    b.Property<int?>("cvid")
+                        .IsConcurrencyToken();
+
+                    b.Property<decimal?>("debit")
+                        .IsConcurrencyToken();
+
+                    b.Property<int?>("dvid")
+                        .IsConcurrencyToken();
+
+                    b.Property<DateTime>("entrydate");
+
+                    b.Property<int?>("jvid")
+                        .IsConcurrencyToken();
+
+                    b.Property<DateTime>("transactiondate");
+
+                    b.Property<int>("transacttypeid");
+
+                    b.HasKey("transactionid");
+                });
+
+            modelBuilder.Entity("QwiMis.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasAnnotation("Relational:Name", "EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .HasAnnotation("Relational:Name", "UserNameIndex");
+
+                    b.HasAnnotation("Relational:TableName", "AspNetUsers");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNet.Identity.EntityFramework.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("QwiMis.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("QwiMis.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNet.Identity.EntityFramework.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId");
+
+                    b.HasOne("QwiMis.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.accounttypes", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.accountgroup")
+                        .WithMany()
+                        .HasForeignKey("accountgroupid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.chartofaccount", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.accountgroup")
+                        .WithMany()
+                        .HasForeignKey("accountgroupid");
+
+                    b.HasOne("QWI.Models.dbmodels.accounttypes")
+                        .WithMany()
+                        .HasForeignKey("accounttypesid");
+
+                    b.HasOne("QWI.Models.dbmodels.transactions")
+                        .WithMany()
+                        .HasForeignKey("transactionstransactionid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.coils_wirerod", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.gatein")
+                        .WithMany()
+                        .HasForeignKey("gateingateinid");
+
+                    b.HasOne("QWI.Models.dbmodels.products")
+                        .WithMany()
+                        .HasForeignKey("productproductid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.gatein", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.productcategory")
+                        .WithMany()
+                        .HasForeignKey("productcategoryproductcategoryid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.pricklingdetail", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.coils_wirerod")
+                        .WithOne()
+                        .HasForeignKey("QWI.Models.dbmodels.pricklingdetail", "coilnumber");
+
+                    b.HasOne("QWI.Models.dbmodels.prickling")
+                        .WithMany()
+                        .HasForeignKey("pricklingpricklingid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.productcategory", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.chartofaccount")
+                        .WithMany()
+                        .HasForeignKey("chartofaccountchartofaccountid");
+                });
+
+            modelBuilder.Entity("QWI.Models.dbmodels.products", b =>
+                {
+                    b.HasOne("QWI.Models.dbmodels.chartofaccount")
+                        .WithMany()
+                        .HasForeignKey("chartofaccountchartofaccountid");
+
+                    b.HasOne("QWI.Models.dbmodels.productcategory")
+                        .WithMany()
+                        .HasForeignKey("productcategoryid");
+
+                    b.HasOne("QWI.Models.dbmodels.producttype")
+                        .WithMany()
+                        .HasForeignKey("producttypeid");
+                });
+        }
+    }
+}

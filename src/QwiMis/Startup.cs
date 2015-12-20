@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using QwiMis.interfaces;
 using QwiMis.Models;
 using QwiMis.Services;
-using QwiMis.interfaces;
 using WebApplication1.Models.dbmodels;
 
 namespace QwiMis
@@ -55,7 +51,8 @@ namespace QwiMis
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddTransient<Iaccountgroupservice, service_accountgroup>();
+            services.AddTransient<Iaccountgroupservice , service_accountgroup>();
+            services.AddTransient<Iproductservice, service_products>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,38 @@
+@model IEnumerable<QWI.Models.dbmodels.products>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.productname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.size)
+        </th>
+        <th></th>
+    </tr>
+    
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.productname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.size)
+        </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.productid">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.productid">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.productid">Delete</a>
+        </td>
+    </tr>
+}
+</table>

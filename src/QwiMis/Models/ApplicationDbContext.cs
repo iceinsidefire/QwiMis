@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using QWI.Models.dbmodels;
 
@@ -17,12 +13,18 @@ namespace QwiMis.Models
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
 
-
         //}
 
         public virtual DbSet<accountgroup> accountgroup { get; set; }
         public virtual DbSet<accounttypes> accounttypes { get; set; }
         public virtual DbSet<chartofaccount> chartofaccount { get; set; }
         public virtual DbSet<transactions> transactions { get; set; }
+        public virtual DbSet<productcategory> productcategory { get; set; }
+        public virtual DbSet<producttype> producttype { get; set; }
+        public virtual DbSet<products> products { get; set; }
+        public virtual DbSet<coils_wirerod> coils_wirerod { get; set; }
+        public virtual DbSet<gatein> gatein { get; set; }
+        public virtual DbSet<prickling> prickling { get; set; }
+        public virtual DbSet<pricklingdetail> pricklingdetail { get; set; }
     }
 }

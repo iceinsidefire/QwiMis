@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
-using QwiMis.interfaces;
+﻿using Microsoft.AspNet.Mvc;
 using QWI.Models.dbmodels;
-using Microsoft.Data.Entity.Storage;
+using QwiMis.interfaces;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace QwiMis.Controllers
 {
     public class accountgroupController : Controller
+
     {
         // GET: /<controller>/
 
@@ -22,10 +19,15 @@ namespace QwiMis.Controllers
             _iaccountgroupservice = accountservice;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            
-            IEnumerable<accountgroup> accountgroups= _iaccountgroupservice.getallaccountgroups();
+            var accountgroups = await _iaccountgroupservice.getall();
+            return View(accountgroups);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            accountgroup accountgroups = await _iaccountgroupservice.first(x => x.accountgroupid == id);
             return View(accountgroups);
         }
     }

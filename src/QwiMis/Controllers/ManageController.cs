@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Security.Claims;
-using Microsoft.AspNet.Authorization;
+﻿using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using QwiMis.Models;
 using QwiMis.Services;
 using QwiMis.ViewModels.Manage;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace QwiMis.Controllers
 {
@@ -342,6 +340,6 @@ namespace QwiMis.Controllers
             return await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
         }
 
-        #endregion
+        #endregion Helpers
     }
 }

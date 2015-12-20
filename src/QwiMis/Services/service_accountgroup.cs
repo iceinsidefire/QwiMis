@@ -1,35 +1,24 @@
 ﻿using QWI.Models.dbmodels;
-using QwiMis.repositories;
-using System.Data;
-using System.Collections.Generic;
-using Microsoft.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System;
 using QwiMis.interfaces;
 using QwiMis.Models;
-using Microsoft.AspNet.Mvc;
+using QwiMis.repositories;
+using System;
+using System.Collections;
+using System.Threading.Tasks;
 
 namespace QwiMis.Services
 {
-    public class service_accountgroup:Iaccountgroupservice
+    public class service_accountgroup : repo_accountgroup, Iaccountgroupservice, IGenericSerives<accountgroup>
     {
-        [FromServices]
-        public ApplicationDbContext _dbcontext { get; set; }
-
-        private repo_accountgroup accountgrouprepo
+        public service_accountgroup(ApplicationDbContext dbcontext) : base(dbcontext)
         {
-            get; set;
+            _dbcontext = dbcontext;
         }
 
-        public service_accountgroup( ApplicationDbContext _dbcontext )
+        public async Task<IEnumerable> getall()
         {
-            accountgrouprepo = new repo_accountgroup(_dbcontext);
-        }
-
-        IEnumerable<accountgroup> Iaccountgroupservice.getallaccountgroups()
-        {
-           return accountgrouprepo.GetAll();
+            return await GetAll();
+            //accountgrouprepo.GetAll();
         }
 
         private bool add_validation(accountgroup model)
@@ -38,30 +27,29 @@ namespace QwiMis.Services
             {
                 return false;
             }
-            else if (accountgrouprepo.recordpresent(m=>m.accountgroupname==model.accountgroupname)){
+            else if (recordpresent(m => m.accountgroupname == model.accountgroupname))
+            {
                 return false;
-
             }
-            accountgrouprepo.save(model);
+            add(model);
             return true;
         }
 
-        int Iaccountgroupservice.SaveRecord(accountgroup model)
+        private int saverecord(accountgroup model)
         {
             if (!add_validation(model))
             {
                 return 0;
             }
-            try { 
-            int num = accountgrouprepo.savechanges();
-            }
-            catch ( Exception dbcx)
+            try
             {
-                string error = "Dbexception" + dbcx.Message;
+                int num = savechanges();
+            }
+            catch (Exception dbcx)
+            {
+                string error = "dbexception" + dbcx.Message;
             }
             return model.accountgroupid;
-
-
         }
     }
 }
