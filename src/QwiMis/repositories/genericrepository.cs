@@ -6,19 +6,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace QwiMis.repositories
 {
     public class genericrepository<T> where T : class, new()
     {
-        public ApplicationDbContext _dbcontext { get; set; }
+        public  ApplicationDbContext _context;
         
         public DbSet<T> _dbset;
 
-        public genericrepository(ApplicationDbContext context)
+        public genericrepository(IServiceProvider serviceProvider)
         {
-            this._dbcontext = context;
-            this._dbset = context.Set<T>();
+           _context = serviceProvider.GetService<ApplicationDbContext>();
+            this._dbset = _context.Set<T>();
         }
 
         public async Task<T> first(Expression<Func<T, bool>> predi)
@@ -105,13 +106,13 @@ namespace QwiMis.repositories
 
         public int savechanges()
         {
-            int num = _dbcontext.SaveChanges();
+            int num = _context.SaveChanges();
             return num;
         }
 
         public async Task<int> savechangesasync()
         {
-            int num = await _dbcontext.SaveChangesAsync();
+            int num = await _context.SaveChangesAsync();
             return num;
         }
     }

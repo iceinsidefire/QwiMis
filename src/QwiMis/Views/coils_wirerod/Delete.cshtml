@@ -1,0 +1,40 @@
+@model QWI.Models.dbmodels.coils_wirerod
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>coils_wirerod</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.coilweight)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.coilweight)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.pricklingid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.pricklingid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

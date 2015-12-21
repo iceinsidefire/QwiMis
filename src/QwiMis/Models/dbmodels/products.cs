@@ -16,9 +16,10 @@ namespace QWI.Models.dbmodels
         public int producttypeid { get; set; }
         [ForeignKey("productcategory")]
         public int productcategoryid { get; set; }
+
         public virtual chartofaccount chartofaccount { get; set; }
         public virtual producttype producttype {get;set;}
-        public virtual productcategory productcategory { get; set; }
+        public virtual productcategory  productcategory { get; set; }
 
     }
 }

@@ -1,5 +1,4 @@
 using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
@@ -8,27 +7,30 @@ using QWI.Models.dbmodels;
 using QwiMis.Models;
 using QwiMis.interfaces;
 using System;
+using Microsoft.Extensions.DependencyInjection;
+using QwiMis.Services;
 
 namespace QwiMis.Controllers
 {
     public class productsController : Controller
     {
-        private Iproductservice _productservice;
+        private service_products _productservice;
         private ApplicationDbContext _context;
 
-        public productsController(Iproductservice productservice, IServiceProvider serviceProvider)
+        public productsController( IServiceProvider serviceProvider)
         {
-            _productservice = productservice;  
-            _context= serviceProvider.GetService<ApplicationDbContext>();
+            _productservice = new service_products(serviceProvider);
+            _context = serviceProvider.GetService<ApplicationDbContext>();
         }
 
-        // GET: products
+        // GET: products1
         public async Task<IActionResult> Index()
         {
-            return View(await _productservice.getall());
+            var applicationDbContext = _productservice.getallproducts_with_type();
+            return View(await applicationDbContext);
         }
 
-        // GET: products/Details/5
+        // GET: products1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,30 +47,31 @@ namespace QwiMis.Controllers
             return View(products);
         }
 
-        // GET: products/Create
-        public async Task<IActionResult> Create()
+        // GET: products1/Create
+        public IActionResult Create()
         {
-            ViewBag.productcategoryid =  new SelectList(_context.productcategory, "productcategoryid", "productcategory");
-           // ViewData["producttypeid"] = new SelectList(_context.producttype, "producttypeid", "producttype");
-
+            ViewData["procat"] = new SelectList(_context.productcategory, "productcategoryid", "categoryname");
+            ViewBag["protype"] = new SelectList(_context.producttype, "producttypeid", "typename");
             return View();
         }
 
-        // POST: products/Create
+        // POST: products1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(products products)
         {
             if (ModelState.IsValid)
             {
-                _productservice.add(products);
-                await _productservice.savechangesasync();
+                _context.products.Add(products);
+                await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewData["productcategoryid"] = new SelectList(_context.productcategory, "productcategoryid", "categoryname", products.productcategoryid);
+            ViewData["producttypeid"] = new SelectList(_context.producttype, "producttypeid", "typename", products.producttypeid);
             return View(products);
         }
 
-        // GET: products/Edit/5
+        // GET: products1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,10 +84,12 @@ namespace QwiMis.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["productcategoryid"] = new SelectList(_context.productcategory, "productcategoryid","categoryname", products.productcategoryid);
+            ViewData["producttypeid"] = new SelectList(_context.producttype, "producttypeid", "typename", products.producttypeid);
             return View(products);
         }
 
-        // POST: products/Edit/5
+        // POST: products1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(products products)
@@ -95,10 +100,12 @@ namespace QwiMis.Controllers
                 await _productservice.savechangesasync();
                 return RedirectToAction("Index");
             }
+            ViewData["productcategoryid"] = new SelectList(_context.productcategory, "productcategoryid", "productcategory", products.productcategoryid);
+            ViewData["producttypeid"] = new SelectList(_context.producttype, "producttypeid", "producttype", products.producttypeid);
             return View(products);
         }
 
-        // GET: products/Delete/5
+        // GET: products1/Delete/5
         [ActionName("Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -116,7 +123,7 @@ namespace QwiMis.Controllers
             return View(products);
         }
 
-        // POST: products/Delete/5
+        // POST: products1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -127,5 +134,4 @@ namespace QwiMis.Controllers
             return RedirectToAction("Index");
         }
     }
-
 }

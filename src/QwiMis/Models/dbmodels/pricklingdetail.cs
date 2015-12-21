@@ -10,6 +10,9 @@ namespace QWI.Models.dbmodels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid pricklingdetailid { get; set; }
+        [ForeignKey("prickling")]
+        public int pricklingid { get; set; }
+        [ForeignKey("coils_wirerod")]
         public int coilnumber { get; set; }
 
         public virtual coils_wirerod coils_wirerod { get; set; }

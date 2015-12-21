@@ -12,7 +12,12 @@ namespace QWI.Models.dbmodels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int coilnumber { get; set; }
-        public decimal coilweight { get; set; } 
+        public decimal coilweight { get; set; }
+        [ForeignKey("prickling")]
+        public int? pricklingid { get; set; }
+        [ForeignKey("gatein")]
+        public int? gateinid { get; set; }
+        public string status { get; set; }
         
 
         public virtual products product { get; set; }

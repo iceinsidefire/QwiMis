@@ -14,9 +14,9 @@
         <div class="form-group">
             <label asp-for="productcategoryid" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-              
-              <select  asp-for="productcategoryid" asp-items="@ViewBag.productcategoryid" class="form-control" ></select>
-            </div>
+                @Html.DropDownListFor(model => model.productcategoryid, (IEnumerable<SelectListItem>)ViewData["procat"], new { @class = "form-control" })
+        
+                        </div>
         </div>
         <div class="form-group">
             <label asp-for="productname" class="col-md-2 control-label"></label>
@@ -28,7 +28,7 @@
         <div class="form-group">
             <label asp-for="producttypeid" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="producttypeid" asp-items="@ViewBag.productcategoryid" class ="form-control"></select>
+                @Html.DropDownListFor(model => model.producttypeid, (IEnumerable<SelectListItem>)ViewData["protype"], new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
@@ -46,6 +46,8 @@
     </div>
 </form>
 
+@Html.DropDownListFor(model => model.productcategoryid, (IEnumerable<SelectListItem>)ViewData["procat"], new { @class = "apex-select-list" })
+@ViewBag.protype
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

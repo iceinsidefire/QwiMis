@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace QwiMis.interfaces
 {
-    public interface Iproductservice:IServices,IGenericSerives<products>
+    public interface Icoils_wirerodservice:IServices,IGenericSerives<coils_wirerod>
     {
-        Task<IEnumerable> getallproducts_with_type();
+        Task<IEnumerable> getallcoils_withdetails();
     }
 }
